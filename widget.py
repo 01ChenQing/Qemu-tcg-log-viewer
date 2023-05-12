@@ -85,8 +85,6 @@ class Qemu_log:
     def __init__(self,log_path):
         self.tb_list = []
         self.format_file(log_path)
-        self.t = []
-        self.t.append("a")
 
     def format_file(self,file_path):
         with open(file_path, 'r') as file:
@@ -137,9 +135,10 @@ class Widget(QWidget):
 
     def on_item_clicked(self, item):
         search_item = item.text()
-        self.select_and_scroll_to_item(self.ui.t_asm_in, search_item)
-        self.select_and_scroll_to_item(self.ui.t_asm_tcg, search_item)
-        self.select_and_scroll_to_item(self.ui.t_asm_out, search_item)
+        if '-->' in search_item:
+            self.select_and_scroll_to_item(self.ui.t_asm_in, search_item)
+            self.select_and_scroll_to_item(self.ui.t_asm_tcg, search_item)
+            self.select_and_scroll_to_item(self.ui.t_asm_out, search_item)
 
     def select_and_scroll_to_item(self, table, search_item):
         for row in range(table.rowCount()):
